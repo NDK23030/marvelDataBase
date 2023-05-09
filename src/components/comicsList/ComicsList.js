@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import Spinner from '../spinner/Spinner';
 import ErrorMessage from '../errorMessage/ErrorMessage';
@@ -14,8 +14,16 @@ const ComicsList = () => {
 
     const {loading, error, getAllComics} = useMarvelService();
 
+    const initMount = useRef(true);
+
     useEffect(() => {
-        onRequest(offset, true);
+        if (initMount.current) {
+            initMount.current = false;
+      
+            return;
+          }
+      
+          return onRequest(offset, true);
     }, [])
 
     const onRequest = (offset, initial) => {
