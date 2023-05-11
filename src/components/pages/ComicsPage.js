@@ -1,11 +1,19 @@
+import {Route, Routes} from 'react-router-dom';
+
+import SingleComicsPage from "./SingleComicsPage";
 import ComicsList from "../comicsList/ComicsList";
 import AppBanner from "../appBanner/AppBanner";
 
 const ComicsPage = () => {
     return (
         <>
-            <AppBanner/>
-            <ComicsList/>
+             <AppBanner/>
+            <Routes>
+                <Route>
+                    <Route path=":comicId" element={<SingleComicsPage/>}/>
+                    <Route path="/*" element={<ComicsList/>}/>
+                </Route>
+        </Routes>
         </>
     )
 }

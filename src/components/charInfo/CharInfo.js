@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types'
 
 import Spinner from '../spinner/Spinner';
@@ -85,10 +86,11 @@ const View = ({char}) => {
                         // eslint-disable-next-line
                         if(i > 9) return;
                         return (
-                            <li className="char__comics-item"
-                                key={i}>
+                            <Link to={`/comics/${item.resourceURI.substring(43)}`}
+                                  className="char__comics-item"
+                                  key={i}>
                                 {item.name}
-                            </li>
+                            </Link>
                         )
                     })
                 }
