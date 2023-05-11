@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
 import Spinner from '../spinner/Spinner';
@@ -33,7 +34,7 @@ const ComicsList = () => {
             .then(onComicsListLoaded)
     }
 
-    const onComicsListLoaded = (newComicsList) => {
+    const onComicsListLoaded = async(newComicsList) => {
         let ended = false;
         if (newComicsList.length < 8 || newComicsList.offset === 1559) {
             ended = true;
@@ -46,22 +47,28 @@ const ComicsList = () => {
     }
 
     function renderItems(arr) {
-        const items = arr.map((item, i) => {
+        const items = arr.map((item) => {
             return (
-                <li className="comics__item"
-                    key={i}>
+                <CSSTransition
+                    key={item.id}
+                    timeout={500}
+                    classNames="comics__item">
+                    <li className="comics__item">
                         <Link to={`/comics/${item.id}`}>
                             <img src={item.thumbnail} alt={item.title} className="comics__item-img"/>
                             <div className="comics__item-name">{item.title}</div>
                             <div className='comics__item-price'>{item.price}</div>
                         </Link>
                 </li>
+                </CSSTransition>
             )
         });
 
         return (
             <ul className="comics__grid">
-                {items}
+                <TransitionGroup component={null}>
+                    {items}
+                </TransitionGroup>
             </ul>
         )
     }
