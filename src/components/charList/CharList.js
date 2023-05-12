@@ -26,6 +26,7 @@ const CharList = (props) => {
           }
       
           return onRequest(offset, true);
+          // eslint-disable-next-line
     }, [])
 
     const onRequest = (offset, initial) => {
